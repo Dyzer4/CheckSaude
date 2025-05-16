@@ -1,0 +1,21 @@
+* {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #92F01B;
+    --secundary-color: #036D19;
+    --background-color: #DFF9DF;
+
+    --HEADLINE1: 64px;
+    --HEADLINE2: 48px;
+    --HEADLINE3: 36px;
+    --HEADLINE4: 24px;
+    --HEADLINE5: 20px;
+    --HEADLINE6: 16px;
+    --paragraph: 14px;
+}
+
