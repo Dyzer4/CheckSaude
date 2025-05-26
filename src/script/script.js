@@ -27,7 +27,7 @@ connection.connect(err => {
   console.log('Conexão estabelecida.');
 
   // Consulta para buscar dados
-  connection.query('SELECT * FROM hospitais', (err, results) => {
+  connection.query('SELECT * FROM usuario', (err, results) => {
     if (err) {
       console.error('Erro na consulta:', err);
       return;
