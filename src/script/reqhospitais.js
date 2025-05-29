@@ -18,14 +18,7 @@ function hospitais() {
     fetch('http://localhost:3000/hospitais')
         .then(response => response.json())  // Converte a resposta para JSON
         .then(data => {
-            console.log(data[3].nome_hospital);                // Manipula os dados recebidos
-            connection.end(function (err) {
-                if (err) {
-                    console.error('Erro ao encerrar conexão:', err);
-                } else {
-                    console.log('Conexão encerrada com sucesso.');
-                }
-            });
+            console.log(data);                // Manipula os dados recebidos
         })
         .catch(error => {
             console.error('Erro ao consumir a API:', error);

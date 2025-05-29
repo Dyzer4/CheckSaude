@@ -4,7 +4,7 @@ const fs = require('fs');
 const config = {
   host: 'dbchecksaude.mysql.database.azure.com',
   user: 'diego',                          
-  password: '',                         
+  password: 'Senai@2025',                         
   database: 'check_saude',                
   port: 3306,
   ssl: {
