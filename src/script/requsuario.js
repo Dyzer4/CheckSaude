@@ -6,8 +6,8 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-app.get('/hospitais', (req, res) => {
-    connection.query('SELECT * FROM hospitais', (err, results) => {
+app.get('/usuario', (req, res) => {
+    connection.query('SELECT * FROM usuario', (err, results) => {
         if (err) {
             console.error('Erro na consulta:', err);
             return res.status(500).json({ error: 'Erro ao consultar o banco de dados' });
