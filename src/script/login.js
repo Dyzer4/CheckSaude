@@ -17,7 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     console.log(usuario)
 
     if (usuario && usuario.id) {
-      localStorage.setItem('usuarioId', usuario.id);
+      window.usuarioId = localStorage.setItem('usuarioId', usuario.id);
       window.location.href = './src/pages/principal';
     } else {
       document.getElementById('mensagem').textContent = 'E-mail ou senha incorretos!';
@@ -26,8 +26,6 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     document.getElementById('mensagem').textContent = 'Erro ao conectar com o servidor!';
     console.error(error);
   }
-
-  const usuarioId = localStorage.getItem('usuarioId');
 });
 
-  export { usuarioId }
+  
