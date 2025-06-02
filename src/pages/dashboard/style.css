@@ -1,0 +1,50 @@
+@import url(/src/styles/global.css);
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pessoa {
+    display: flex;
+    width: 100%;
+    padding: 50px;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    flex-direction: column;
+    gap: 50px;
+}
+
+.info-content {
+    display: flex;
+    gap: 30%;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.agendamentos {
+    display: flex;
+    width: 100%;
+    padding: 50px;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    flex-direction: column;
+    gap: 50px;
+}
+
+.agendamento-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.agendamento-content span{
+    text-align: center;
+}
