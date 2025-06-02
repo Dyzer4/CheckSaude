@@ -3,8 +3,20 @@ function carregarUsuario() {
         .then(response => response.json())
         .then(data => {
                 const usuario = data[(window.usuarioId = localStorage.getItem('usuarioId')) - 1];
+                document.getElementById("cpf").innerText = usuario.cpf
+                document.getElementById("rg").innerText = usuario.rg
+                document.getElementById("telefone").innerText = usuario.telefone
                 document.getElementById("email").innerText = usuario.email;
                 document.getElementById("endereco").innerText = usuario.endereco;
+                fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/convenios`)
+                .then(response => response.json())
+                .then(data => {
+                    const convenio = data.find(u => u.id == usuario.conv)
+                    document.getElementById("convenio").innerText = convenio.nome;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar convênio:', error);
+                });
         })
         .catch(error => {
             console.error('Erro ao consumir a API:', error);
