@@ -4,7 +4,7 @@ function carregarUsuario() {
         .then(data => {
             const usuarioId = localStorage.getItem('usuarioId');
             if (usuarioId == '') {
-                window.location.href = '/CheckSaude'
+                window.location.href = '/index.html'
             }
             const usuario = data.find(u => u.id == usuarioId);
             document.getElementById("nome").innerText = usuario.nome;
@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 let btnlogoff = document.getElementById("btn-logoff")
 
 btnlogoff.addEventListener('click', function () {
-    window.location.href = '/CheckSaude'
+    window.location.href = '/index.html'
     window.usuarioId = localStorage.setItem('usuarioId', '');
 })
 
