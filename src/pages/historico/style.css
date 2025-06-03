@@ -1,0 +1,33 @@
+@import url(/src/styles/global.css);
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.agend-content{
+    background-color: var(--primary-color);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.agendamento-item {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-left: 4px solid var(--primary-color); 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-size: 14px;
+    color: #333;
+    transition: 0.3s ease;
+}
+
+.agendamento-item:hover {
+    background-color: rgba(22, 87, 13, 0.275);
+    font-weight: bold;
+}
+
