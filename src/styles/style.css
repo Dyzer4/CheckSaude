@@ -53,3 +53,24 @@ main{
     font-size: 20px;
 }
 
+.btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-wrapper button{
+    padding: 10px 25px;
+    background-color: var(--secundary-color);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-wrapper button:hover {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
