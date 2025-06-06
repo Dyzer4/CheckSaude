@@ -5,7 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   const senha = document.getElementById('senha').value.trim();
 
   try {
-    const response = await fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
+    const response = await fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/usuarios/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
       method: 'GET'
     });
 
