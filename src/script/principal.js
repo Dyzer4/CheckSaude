@@ -1,23 +1,33 @@
-function carregarUsuario() {
-    fetch('https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/usuarios')
+const usuarioId = localStorage.getItem('usuarioId');
+let convenio = document.getElementById("convenio")
+function carregarUsuario(id) {
+    fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/usuarios/${id}`)
         .then(response => response.json())
         .then(data => {
-            const usuarioId = localStorage.getItem('usuarioId');
             if (usuarioId == '') {
                 window.location.href = '/index.html'
             }
-            const usuario = data.find(u => u.id == usuarioId);
-            document.getElementById("nome").innerText = usuario.nome;
+            document.getElementById("nome").innerText = data.nomeCompleto;
 
-            fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/convenios`)
+            fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/convenios/${data.idConvenio}`)
                 .then(response => response.json())
                 .then(data => {
-                    const convenio = data.find(u => u.id == usuario.conv)
-                    document.getElementById("convenio").innerText = convenio.nome;
+                    convenio.innerText = data.nomeConvenio;
                 })
                 .catch(error => {
                     console.error('Erro ao buscar convênio:', error);
                 });
+            
+            fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/agendamentos`)
+                .then(response => response.json())
+                .then(data => {
+                    const agendamento = data.filter(data => data.idUsuario == usuarioId);
+                    console.log(agendamento[agendamento.length - 1])
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar convênio:', error);
+                });
+            
         })
         .catch(error => {
             console.error('Erro ao consumir a API:', error);
@@ -27,7 +37,7 @@ function carregarUsuario() {
 
 // Executa a função assim que o DOM estiver carregado
 window.addEventListener('DOMContentLoaded', (event) => {
-    carregarUsuario();
+    carregarUsuario(usuarioId);
 });
 
 let btnlogoff = document.getElementById("btn-logoff")

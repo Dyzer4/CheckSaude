@@ -1,5 +1,5 @@
-const usuarioId = localStorage.getItem('usuarioId'); // ID do usuário logado (pode vir do sistema de autenticação)
-const apiUrl = `https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/agendamentos?usuario=${usuarioId}`; // URL da API para buscar agendamentos filtrados pelo usuário
+const usuarioId = localStorage.getItem('usuarioId'); // 
+const apiUrl = `https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/agendamentos?usuario=${usuarioId}`; 
 
 function listarAgendamentosUsuario() {
     fetch(apiUrl)
