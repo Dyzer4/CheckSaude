@@ -3,9 +3,10 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
   const email = document.getElementById('email').value.trim();
   const senha = document.getElementById('senha').value.trim();
+  const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
 
   try {
-    const response = await fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/usuarios/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
+    const response = await fetch(`${api}/usuarios/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
       method: 'GET'
     });
 

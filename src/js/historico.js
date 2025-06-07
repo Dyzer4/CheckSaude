@@ -1,8 +1,9 @@
 const usuarioId = localStorage.getItem('usuarioId'); // 
-const apiUrl = `https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/agendamentos?usuario=${usuarioId}`; 
+console.log(usuarioId)
+const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
 
-function listarAgendamentosUsuario() {
-    fetch(apiUrl)
+function listarAgendamentosUsuario(api, usuarioId) {
+    fetch(`${api}/agendamentos`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro na requisição: ' + response.status);
@@ -12,19 +13,13 @@ function listarAgendamentosUsuario() {
         .then(agendamentos => {
             const container = document.getElementById('agendamentos');
             container.innerHTML = '';
-
-            // Extrair userId da URL (exemplo: ?userId=123)
-            const urlParams = new URLSearchParams(window.location.search);
-            const userId = urlParams.get('userId');
-
             if (!usuarioId) {
                 container.innerHTML = '<p>Usuário não especificado na URL.</p>';
                 return;
             }
 
             // Filtrar agendamentos para o usuário específico
-            const agendamentosDoUsuario = agendamentos.filter(agendamentos => agendamentos.usuario == usuarioId);
-
+            const agendamentosDoUsuario = agendamentos.filter(agendamentos => agendamentos.idUsuario == usuarioId);
             if (agendamentosDoUsuario.length === 0) {
                 container.innerHTML = '<p>Não há agendamentos para este usuário.</p>';
                 return;
@@ -37,7 +32,7 @@ function listarAgendamentosUsuario() {
             agendamentosDoUsuario.forEach(agendamento => {
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('agendamento-item'); // opcional para estilização
-                itemDiv.textContent = `${agendamento.data} - ${agendamento.exame} - ${agendamento.hospital} - ${agendamento.convenio}`;
+                itemDiv.textContent = `${agendamento.dataExame} - ${agendamento.nomeExame} - ${agendamento.idHospitais} - ${agendamento.idConvenio}`;
                 divContainer.appendChild(itemDiv);
             });
 
@@ -54,4 +49,4 @@ function listarAgendamentosUsuario() {
 }
 
 // Chama a função para carregar os agendamentos ao carregar a página
-listarAgendamentosUsuario();
+listarAgendamentosUsuario(api, usuarioId);

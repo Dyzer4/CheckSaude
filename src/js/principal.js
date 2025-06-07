@@ -1,7 +1,8 @@
 const usuarioId = localStorage.getItem('usuarioId');
+const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
 let convenio = document.getElementById("convenio")
-function carregarUsuario(id) {
-    fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/usuarios/${id}`)
+function carregarUsuario(id, api) {
+    fetch(`${api}/usuarios/${id}`)
         .then(response => response.json())
         .then(data => {
             if (usuarioId == '') {
@@ -18,15 +19,7 @@ function carregarUsuario(id) {
                     console.error('Erro ao buscar convênio:', error);
                 });
             
-            fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/agendamentos`)
-                .then(response => response.json())
-                .then(data => {
-                    const agendamento = data.filter(data => data.idUsuario == usuarioId);
-                    console.log(agendamento[agendamento.length - 1])
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar convênio:', error);
-                });
+            
             
         })
         .catch(error => {
@@ -37,7 +30,7 @@ function carregarUsuario(id) {
 
 // Executa a função assim que o DOM estiver carregado
 window.addEventListener('DOMContentLoaded', (event) => {
-    carregarUsuario(usuarioId);
+    carregarUsuario(usuarioId, api);
 });
 
 let btnlogoff = document.getElementById("btn-logoff")

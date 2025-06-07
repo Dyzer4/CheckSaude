@@ -1,4 +1,5 @@
 const usuarioId = localStorage.getItem('usuarioId');
+const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
 let cpf = document.getElementById("cpf")
 let rg = document.getElementById("rg")
 let convenio = document.getElementById("convenio")
@@ -6,8 +7,14 @@ let telefone = document.getElementById("telefone")
 let email = document.getElementById("email")
 let endereco = document.getElementById("endereco")
 
-function carregarUsuario(id) {
-  fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/usuarios/${id}`)
+let codagend = document.getElementById("codagend")
+let exameagend = document.getElementById("exameagend")
+let datagend = document.getElementById("datagend")
+let hospagend = document.getElementById("hospagend")
+let convagend = document.getElementById("convagend")
+
+function carregarUsuario(id, api) {
+  fetch(`${api}/usuarios/${id}`)
     .then(response => {
       if (!response.ok) {
         throw new Error(`Erro HTTP! Status: ${response.status}`);
@@ -22,7 +29,7 @@ function carregarUsuario(id) {
       endereco.innerText = data.enderecoUsuario
       let idconvenio = data.idConvenio
 
-      fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/convenios/${idconvenio}`)
+      fetch(`${api}/convenios/${idconvenio}`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`Erro HTTP! Status: ${response.status}`);
@@ -36,22 +43,19 @@ function carregarUsuario(id) {
           console.error('Erro ao consumir a API:', error);
         })
 
-        fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/agendamentos`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Erro HTTP! Status: ${response.status}`);
-          }
-          return response.json();
-        })
+      fetch(`${api}/agendamentos`)
+        .then(response => response.json())
         .then(data => {
-          convenio.innerText = data.nomeConvenio
+          const agendamento = data.filter(data => data.idUsuario == usuarioId);
+          codagend.innerText = agendamento[agendamento.length - 1].idAgendamento
+          exameagend.innerText = agendamento[agendamento.length - 1].nomeExame
+          datagend.innerText = agendamento[agendamento.length - 1].dataExame
+          hospagend.innerText = agendamento[agendamento.length - 1].idHospitais
+          convagend.innerText = agendamento[agendamento.length - 1].idConvenio
         })
         .catch(error => {
-          console.error('Erro ao consumir a API:', error);
-        })
-
-        
-
+          console.error('Erro ao buscar convênio:', error);
+        });
     })
     .catch(error => {
       console.error('Erro ao consumir a API:', error);
@@ -59,5 +63,5 @@ function carregarUsuario(id) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  carregarUsuario(usuarioId);
+  carregarUsuario(usuarioId, api);
 });
