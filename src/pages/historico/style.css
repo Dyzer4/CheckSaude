@@ -23,7 +23,7 @@ body {
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     font-size: 14px;
     color: #333;
-    transition: 0.3s ease;
+    transition: 0.3s;
 }
 
 .agendamento-item:hover {

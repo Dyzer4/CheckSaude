@@ -52,4 +52,16 @@ main{
 .main-container form input::placeholder {
     font-size: 20px;
 }
+ button {
+   background-color:#036D19 ;
+   color: white;
+   padding: 15px;
+   margin-top:10px ;
+   border: 1px solid black ;
+   transition: 0.2s;
+   border-radius: 5px;
 
+ }
+ button:hover {
+    background-color:#92F01B;
+ }
