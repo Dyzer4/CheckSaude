@@ -52,7 +52,7 @@ function carregarUsuario(id, api) {
           const agendamento = data.filter(data => data.idUsuario == usuarioId);
 
           if (agendamento.length == 0) {
-            document.getElementById('erro').textContent = 'Nenhum agendamento Realizado!';
+            document.getElementById('erro').textContent = 'Nenhum agendamento realizado!';
             document.querySelector(".agendamento-content").style.display = "none";
           } else {
             codagend.innerText = agendamento[agendamento.length - 1].idAgendamento
