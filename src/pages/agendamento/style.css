@@ -69,5 +69,8 @@ button:hover{
     border: 1px solid black;
     color: black;
 }
+.main select option {
+    background-color: #77ed77;
+}
 
 

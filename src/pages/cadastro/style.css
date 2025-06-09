@@ -52,6 +52,22 @@ main{
 .main-container form input::placeholder {
     font-size: 20px;
 }
+
+.main-container select
+ {
+    background-color: var;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    width: 30vh;
+    font-size: 20px;
+    outline: none;
+ }
+.main-container option {
+    background-color: #77ed77;
+
+}
+
  button {
    background-color:#036D19 ;
    color: white;
@@ -63,5 +79,6 @@ main{
 
  }
  button:hover {
-    background-color:#92F01B;
+    background-color:#99f423;
  }
+
