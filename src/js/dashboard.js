@@ -29,6 +29,7 @@ function carregarUsuario(id, api) {
       endereco.innerText = data.enderecoUsuario
       let idconvenio = data.idConvenio
 
+
       fetch(`${api}/convenios/${idconvenio}`)
         .then(response => {
           if (!response.ok) {
@@ -38,6 +39,7 @@ function carregarUsuario(id, api) {
         })
         .then(data => {
           convenio.innerText = data.nomeConvenio
+          convagend.innerText = data.nomeConvenio
         })
         .catch(error => {
           console.error('Erro ao consumir a API:', error);
@@ -59,6 +61,20 @@ function carregarUsuario(id, api) {
             hospagend.innerText = agendamento[agendamento.length - 1].idHospitais
             convagend.innerText = agendamento[agendamento.length - 1].idConvenio
             document.getElementById('erro').style.display = "none";
+
+            fetch(`${api}/hospitais/${agendamento[agendamento.length - 1].idHospitais}`)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                hospagend.innerText = data.nomeHospital
+              })
+              .catch(error => {
+                console.error('Erro ao consumir a API:', error);
+              })
           }
         })
         .catch(error => {
