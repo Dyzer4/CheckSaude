@@ -46,12 +46,20 @@ function carregarUsuario(id, api) {
       fetch(`${api}/agendamentos`)
         .then(response => response.json())
         .then(data => {
+
           const agendamento = data.filter(data => data.idUsuario == usuarioId);
-          codagend.innerText = agendamento[agendamento.length - 1].idAgendamento
-          exameagend.innerText = agendamento[agendamento.length - 1].nomeExame
-          datagend.innerText = agendamento[agendamento.length - 1].dataExame
-          hospagend.innerText = agendamento[agendamento.length - 1].idHospitais
-          convagend.innerText = agendamento[agendamento.length - 1].idConvenio
+
+          if (agendamento.length == 0) {
+            document.getElementById('erro').textContent = 'Nenhum agendamento Realizado!';
+            document.querySelector(".agendamento-content").style.display = "none";
+          } else {
+            codagend.innerText = agendamento[agendamento.length - 1].idAgendamento
+            exameagend.innerText = agendamento[agendamento.length - 1].nomeExame
+            datagend.innerText = agendamento[agendamento.length - 1].dataExame
+            hospagend.innerText = agendamento[agendamento.length - 1].idHospitais
+            convagend.innerText = agendamento[agendamento.length - 1].idConvenio
+            document.getElementById('erro').style.display = "none";
+          }
         })
         .catch(error => {
           console.error('Erro ao buscar convênio:', error);

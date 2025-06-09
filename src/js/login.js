@@ -1,4 +1,7 @@
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
+let btnlogin = document.getElementById('btn-login')
+let btncad = document.getElementById("btn-cad")
+
+btnlogin.addEventListener('click', async function(event) {
   event.preventDefault();
 
   const email = document.getElementById('email').value.trim();
@@ -28,5 +31,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     console.error(error);
   }
 });
+
+btncad.addEventListener("click", function(){
+  window.location.href = './src/pages/cadastro/'
+})
 
   

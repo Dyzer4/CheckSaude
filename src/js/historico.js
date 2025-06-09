@@ -1,5 +1,4 @@
 const usuarioId = localStorage.getItem('usuarioId'); // 
-console.log(usuarioId)
 const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
 
 function listarAgendamentosUsuario(api, usuarioId) {
