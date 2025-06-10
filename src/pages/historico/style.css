@@ -5,14 +5,19 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: center;
 }
 
 .agend-content{
     background-color: var(--primary-color);
     padding: 40px;
+    border-radius: 10px;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     gap: 30px;
+    box-shadow: -5px 10px 20px;
+    width: 90%;
 }
 
 .agendamento-item {

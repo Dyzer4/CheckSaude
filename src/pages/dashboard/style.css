@@ -5,39 +5,45 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 .pessoa {
     display: flex;
-    width: 100%;
+    width: 90%;
     padding: 50px;
     border: 1px solid;
     border-radius: 10px;
     background-color: var(--primary-color);
     flex-direction: column;
     gap: 50px;
+    box-shadow: -5px 10px 20px;
 }
 
 .info-content {
     display: flex;
     gap: 30%;
+    
 }
 
 .info {
     display: flex;
     flex-direction: column;
     gap: 25px;
+    
 }
 
 .agendamentos {
     display: flex;
-    width: 100%;
+    width: 90%;
     padding: 50px;
     border: 1px solid;
     border-radius: 10px;
     background-color: var(--primary-color);
     flex-direction: column;
     gap: 50px;
+    box-shadow: -5px 10px 20px;
 }
 
 .agendamento-content {
