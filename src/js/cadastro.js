@@ -15,6 +15,8 @@ btncad.addEventListener("click", function (event) {
     let convenio = document.getElementById("convenio").value
     let dtanasc = document.getElementById("dtanasc").value
 
+    console.log(nomecompleto, cpf, rg, telefone, endereco, email, senha, convenio, dtanasc)
+
     fetch(url, {
         method: 'POST',
         headers: {
