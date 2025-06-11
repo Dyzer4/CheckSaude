@@ -28,23 +28,34 @@ function listarAgendamentosUsuario(api, usuarioId) {
             const divContainer = document.createElement('div');
             divContainer.classList.add('agendamentos-list'); // opcional para estilização
 
-            agendamentosDoUsuario.forEach(agendamento => {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('agendamento-item'); // opcional para estilização
-                itemDiv.textContent = `${agendamento.dataExame} - ${agendamento.nomeExame} - ${agendamento.idHospitais} - ${agendamento.idConvenio}`;
-                divContainer.appendChild(itemDiv);
-            });
 
+            agendamentosDoUsuario.forEach(agendamento => {
+                fetch(`${api}/hospitais/${agendamento.idHospitais}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        hospital = data
+                        fetch(`${api}/convenios/${agendamento.idConvenio}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                convenio = data
+                                const itemDiv = document.createElement('div');
+                                itemDiv.classList.add('agendamento-item'); // opcional para estilização
+                                itemDiv.textContent = `${agendamento.dataExame} - ${agendamento.nomeExame} - ${hospital.nomeHospital} - ${convenio.nomeConvenio}`;
+                                divContainer.appendChild(itemDiv);
+                            })
+                    })
+                    .catch(console.log("erro ao pesquisar hospitais"))
+            });
             container.appendChild(divContainer);
         })
 
 
-        
-        .catch (error => {
-    const container = document.getElementById('agendamentos');
-    container.innerHTML = `<p>Erro ao carregar agendamentos: ${error.message}</p>`;
-    console.error('Erro:', error);
-});
+
+        .catch(error => {
+            const container = document.getElementById('agendamentos');
+            container.innerHTML = `<p>Erro ao carregar agendamentos: ${error.message}</p>`;
+            console.error('Erro:', error);
+        });
 }
 
 // Chama a função para carregar os agendamentos ao carregar a página
