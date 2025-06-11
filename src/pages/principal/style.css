@@ -18,6 +18,10 @@ header {
     border: 1px solid black;
 }
 
+header img {
+    width: 300px;
+}
+
 header button{
     background-color: var(--primary-color);
     color: black;
@@ -41,6 +45,10 @@ header button:hover{
     flex-direction: column;
     align-items: center;
     gap: 25px;
+}
+
+.user img {
+    width:initial;
 }
 
 .user h1 {

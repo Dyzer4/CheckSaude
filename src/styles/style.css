@@ -31,6 +31,10 @@ main{
     box-shadow: -5px 10px 20px;
 }
 
+.main-container img {
+    width: 200px;
+}
+
 .main-container form {
     display: flex;
     flex-direction: column;
