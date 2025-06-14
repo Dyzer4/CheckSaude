@@ -1,62 +1,59 @@
-const usuarioId = localStorage.getItem('usuarioId'); // 
-const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
+const usuarioId = localStorage.getItem('usuarioId');
+const API_BASE_URL = 'https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api';
 
-function listarAgendamentosUsuario(api, usuarioId) {
-    fetch(`${api}/agendamentos`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.status);
+// Função utilitária para buscar dados da API
+const buscarDados = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status}`);
+    }
+    return await response.json();
+};
+
+// Função principal para listar agendamentos do usuário
+const listarAgendamentosUsuario = async () => {
+    const container = document.getElementById('agendamentos');
+    container.innerHTML = '';
+
+    if (!usuarioId) {
+        container.innerHTML = '<p>Usuário não especificado.</p>';
+        return;
+    }
+
+    try {
+        const todosAgendamentos = await buscarDados(`${API_BASE_URL}/agendamentos`);
+        const agendamentosUsuario = todosAgendamentos.filter(a => a.idUsuario == usuarioId);
+
+        if (agendamentosUsuario.length === 0) {
+            container.innerHTML = '<p>Não há agendamentos para este usuário.</p>';
+            return;
+        }
+
+        const listaAgendamentos = document.createElement('div');
+        listaAgendamentos.classList.add('agendamentos-list');
+
+        // Buscar hospital e convênio para cada agendamento
+        for (const agendamento of agendamentosUsuario) {
+            try {
+                const hospital = await buscarDados(`${API_BASE_URL}/hospitais/${agendamento.idHospitais}`);
+                const convenio = await buscarDados(`${API_BASE_URL}/convenios/${agendamento.idConvenio}`);
+
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('agendamento-item');
+                itemDiv.textContent = `${agendamento.dataExame} - ${agendamento.nomeExame} - ${hospital.nomeHospital} - ${convenio.nomeConvenio}`;
+                listaAgendamentos.appendChild(itemDiv);
+            } catch (erroInterno) {
+                console.error('Erro ao buscar hospital ou convênio:', erroInterno);
             }
-            return response.json(); // Converte a resposta para JSON
-        })
-        .then(agendamentos => {
-            const container = document.getElementById('agendamentos');
-            container.innerHTML = '';
-            if (!usuarioId) {
-                container.innerHTML = '<p>Usuário não especificado na URL.</p>';
-                return;
-            }
+        }
 
-            // Filtrar agendamentos para o usuário específico
-            const agendamentosDoUsuario = agendamentos.filter(agendamentos => agendamentos.idUsuario == usuarioId);
-            if (agendamentosDoUsuario.length === 0) {
-                container.innerHTML = '<p>Não há agendamentos para este usuário.</p>';
-                return;
-            }
+        container.appendChild(listaAgendamentos);
 
-            // Criar a div que vai conter os itens
-            const divContainer = document.createElement('div');
-            divContainer.classList.add('agendamentos-list'); // opcional para estilização
+    } catch (erro) {
+        container.innerHTML = `<p>Erro ao carregar agendamentos: ${erro.message}</p>`;
+        console.error('Erro:', erro);
+    }
+};
 
-
-            agendamentosDoUsuario.forEach(agendamento => {
-                fetch(`${api}/hospitais/${agendamento.idHospitais}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        hospital = data
-                        fetch(`${api}/convenios/${agendamento.idConvenio}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                convenio = data
-                                const itemDiv = document.createElement('div');
-                                itemDiv.classList.add('agendamento-item'); // opcional para estilização
-                                itemDiv.textContent = `${agendamento.dataExame} - ${agendamento.nomeExame} - ${hospital.nomeHospital} - ${convenio.nomeConvenio}`;
-                                divContainer.appendChild(itemDiv);
-                            })
-                    })
-                    .catch(console.log("erro ao pesquisar hospitais"))
-            });
-            container.appendChild(divContainer);
-        })
-
-
-
-        .catch(error => {
-            const container = document.getElementById('agendamentos');
-            container.innerHTML = `<p>Erro ao carregar agendamentos: ${error.message}</p>`;
-            console.error('Erro:', error);
-        });
-}
-
-// Chama a função para carregar os agendamentos ao carregar a página
-listarAgendamentosUsuario(api, usuarioId);
+// Executar ao carregar a página
+window.addEventListener('DOMContentLoaded', listarAgendamentosUsuario);

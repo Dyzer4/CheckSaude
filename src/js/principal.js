@@ -1,42 +1,43 @@
+const API_BASE_URL = 'https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api';
 const usuarioId = localStorage.getItem('usuarioId');
-const api = "https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api"
-let convenio = document.getElementById("convenio")
-function carregarUsuario(id, api) {
-    fetch(`${api}/usuarios/${id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (usuarioId == '') {
-                window.location.href = '/index.html'
-            }
-            document.getElementById("nome").innerText = data.nomeCompleto;
 
-            fetch(`https://apichecksaude-dmcqhmgcdwcnehez.centralus-01.azurewebsites.net/api/convenios/${data.idConvenio}`)
-                .then(response => response.json())
-                .then(data => {
-                    convenio.innerText = data.nomeConvenio;
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar convênio:', error);
-                });
-            
-            
-            
-        })
-        .catch(error => {
-            console.error('Erro ao consumir a API:', error);
-        });
+const nomeUsuario = document.getElementById('nome');
+const convenioNome = document.getElementById('convenio');
+const btnLogoff = document.getElementById('btn-logoff');
 
-}
+const buscarDados = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Erro ao acessar: ${url} | Status: ${response.status}`);
+    }
+    return await response.json();
+};
 
-// Executa a função assim que o DOM estiver carregado
-window.addEventListener('DOMContentLoaded', (event) => {
-    carregarUsuario(usuarioId, api);
+const carregarUsuario = async (id) => {
+    if (!id) {
+        window.location.href = '/index.html';
+        return;
+    }
+
+    try {
+        const usuario = await buscarDados(`${API_BASE_URL}/usuarios/${id}`);
+        nomeUsuario.innerText = usuario.nomeCompleto;
+
+        const convenio = await buscarDados(`${API_BASE_URL}/convenios/${usuario.idConvenio}`);
+        convenioNome.innerText = convenio.nomeConvenio;
+
+    } catch (erro) {
+        console.error('Erro ao carregar dados do usuário:', erro);
+    }
+};
+
+const realizarLogoff = () => {
+    localStorage.removeItem('usuarioId');
+    window.location.href = '/index.html';
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+    carregarUsuario(usuarioId);
 });
 
-let btnlogoff = document.getElementById("btn-logoff")
-
-btnlogoff.addEventListener('click', function () {
-    window.location.href = '/index.html'
-    window.usuarioId = localStorage.setItem('usuarioId', '');
-})
-
+btnLogoff.addEventListener('click', realizarLogoff);
