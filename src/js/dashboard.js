@@ -6,8 +6,6 @@ let convenio = document.getElementById("convenio")
 let telefone = document.getElementById("telefone")
 let email = document.getElementById("email")
 let endereco = document.getElementById("endereco")
-
-let codagend = document.getElementById("codagend")
 let exameagend = document.getElementById("exameagend")
 let datagend = document.getElementById("datagend")
 let hospagend = document.getElementById("hospagend")
@@ -55,11 +53,9 @@ function carregarUsuario(id, api) {
             document.getElementById('erro').textContent = 'Nenhum agendamento realizado!';
             document.querySelector(".agendamento-content").style.display = "none";
           } else {
-            codagend.innerText = agendamento[agendamento.length - 1].idAgendamento
             exameagend.innerText = agendamento[agendamento.length - 1].nomeExame
             datagend.innerText = agendamento[agendamento.length - 1].dataExame
             hospagend.innerText = agendamento[agendamento.length - 1].idHospitais
-            convagend.innerText = agendamento[agendamento.length - 1].idConvenio
             document.getElementById('erro').style.display = "none";
 
             fetch(`${api}/hospitais/${agendamento[agendamento.length - 1].idHospitais}`)
