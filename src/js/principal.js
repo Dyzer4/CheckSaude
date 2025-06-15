@@ -4,6 +4,7 @@ const usuarioId = localStorage.getItem('usuarioId');
 const nomeUsuario = document.getElementById('nome');
 const convenioNome = document.getElementById('convenio');
 const btnLogoff = document.getElementById('btn-logoff');
+let foto = document.getElementById("foto")
 
 const buscarDados = async (url) => {
     const response = await fetch(url);
@@ -21,6 +22,10 @@ const carregarUsuario = async (id) => {
 
     try {
         const usuario = await buscarDados(`${API_BASE_URL}/usuarios/${id}`);
+        const urlImagem = `http://localhost:8080/api/usuarios/${usuarioId}/foto`;
+        foto.style.width = "200px"
+
+        document.getElementById("foto").src = urlImagem;
         nomeUsuario.innerText = usuario.nomeCompleto;
 
         const convenio = await buscarDados(`${API_BASE_URL}/convenios/${usuario.idConvenio}`);

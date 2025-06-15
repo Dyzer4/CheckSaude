@@ -16,19 +16,18 @@ const obterDadosFormulario = () => {
     };
 };
 
-// Função para enviar os dados para a API
-const cadastrarUsuario = async (dadosUsuario) => {
+// Função para enviar os dados + imagem
+const cadastrarUsuario = async (formData) => {
     const response = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dadosUsuario)
+        body: formData // não defina Content-Type aqui!
     });
 
     if (!response.ok) {
         throw new Error(`Erro ao cadastrar. Status: ${response.status}`);
     }
 
-    return await response.json();
+    return await response.text();
 };
 
 // Evento de clique no botão de cadastro
@@ -36,10 +35,18 @@ btnCadastro.addEventListener('click', async (event) => {
     event.preventDefault();
 
     const dadosUsuario = obterDadosFormulario();
-    console.log('Enviando dados:', dadosUsuario);
+    const imagem = document.getElementById('foto').files[0];
+
+    const formData = new FormData();
+    for (const chave in dadosUsuario) {
+        formData.append(chave, dadosUsuario[chave]);
+    }
+
+    formData.append('foto', imagem);
 
     try {
-        await cadastrarUsuario(dadosUsuario);
+        const resultado = await cadastrarUsuario(formData);
+        alert(resultado);
         window.location.href = '/index.html';
     } catch (erro) {
         alert('Erro ao enviar dados. Verifique os campos e tente novamente.');
