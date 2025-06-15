@@ -22,7 +22,7 @@ const carregarUsuario = async (id) => {
 
     try {
         const usuario = await buscarDados(`${API_BASE_URL}/usuarios/${id}`);
-        const urlImagem = `http://localhost:8080/api/usuarios/${usuarioId}/foto`;
+        const urlImagem = `${API_BASE_URL}/usuarios/${usuarioId}/foto`;
         foto.style.width = "200px"
 
         document.getElementById("foto").src = urlImagem;
