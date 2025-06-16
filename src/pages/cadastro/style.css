@@ -41,6 +41,17 @@ main{
     gap: 5px;
 }
 
+.form-content {
+    display: flex;
+    gap: 20px;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .main-container form label {
     font-size: 20px;
 }
@@ -60,7 +71,7 @@ main{
 .main-container select
  {
     background-color: var;
-    padding: 5px;
+    padding: 4px;
     border: 1px solid;
     border-radius: 5px;
     width: 30vh;
@@ -84,5 +95,7 @@ main{
  }
  button:hover {
     background-color:#99f423;
+    color: black;
+    font-weight: bold;
  }
 
