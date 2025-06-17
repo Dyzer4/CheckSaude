@@ -74,4 +74,10 @@ button:hover{
     background-color: #77ed77;
 }
 
+@media (max-width: 500px) {
+    .main form {
+        box-shadow: -5px 10px 20px;
+        padding: 20px;
+    }
+}
 

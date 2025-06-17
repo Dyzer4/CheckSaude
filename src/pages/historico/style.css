@@ -6,6 +6,7 @@ body {
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    padding: 10px;
 }
 
 .agend-content{
@@ -35,5 +36,17 @@ body {
 .agendamento-item:hover {
     background-color: rgba(22, 87, 13, 0.275);
     font-weight: bold;
+}
+
+@media (max-width: 500px) {
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .agend-content {
+        width: 95%;
+        box-shadow: -5px 5px 10px;
+    }
 }
 

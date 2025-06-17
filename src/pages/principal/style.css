@@ -103,3 +103,27 @@ iframe {
     width: 100%;
     height: 100%;
 }
+
+@media (max-width: 500px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    header {
+        width: 85%;
+        margin: 0;
+    }
+
+    main {
+        width: 85%;
+        margin: 0;
+    }
+
+    .header img {
+        width: 250px;
+    }
+
+}
